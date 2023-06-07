@@ -1,0 +1,49 @@
+.app {
+    background-image: url("./forest.JPG");
+    background-size: cover;
+}
+
+.btn {
+    margin: 5px;
+    width: fit-content;
+}
+
+.container {
+    background-color: aliceblue;
+    border: black solid 5px;
+    grid-column: 2;
+    height:fit-content;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+ }
+
+input {
+    margin: 5px;
+    width: fit-content;
+}
+
+.label {
+    color: red;
+    font-size: large;
+}
+
+#number {
+    width: 220px;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  
+  }
+
+select {
+    border: darkorchid solid 3px;
+    font-family: Arial;
+    font-size: medium;
+    height: 35px;
+    width: 125px
+}
