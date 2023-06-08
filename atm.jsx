@@ -9,7 +9,8 @@ const ATMDeposit = ({ onChange, isDeposit, choice }) => {
 const Account = () => {
   const { useEffect, useState } = React;
   const [totalState, setTotalState] = useState(0);
-  const [isDeposit, setIsDeposit] = useState(true);
+  const [isDeposit, setIsDeposit] = useState();
+  const [isCash, setIsCash] = useState(false);
   const [atmMode, setAtmMode] = useState('');
   const [isWithdrawal20, setIsWithdrawalUnder100] = useState('');
   const [isWithdrawal100, setIsWithdrawalOver100] = useState('');
@@ -23,12 +24,14 @@ const Account = () => {
     console.log(transactionHistory);
     setDeposit(0);
     setAtmMode('')
+    setIsDeposit()
   }, [totalState]);
 
 // Removes the withdrawal options upon transaction or when deposit button is clicked
   useEffect(() => {
     setIsWithdrawalUnder100('');
     setIsWithdrawalOver100('');
+    setIsCash();
   }, [totalState, isDeposit]);
 
   const handleChange = event => {
@@ -65,11 +68,21 @@ const Account = () => {
 
 // Controls the appearance of the deposit input field
     const chooseTransactionType = (event) => {
-      setAtmMode(event.target.value);
       if (event.target.value === 'Deposit') {
         setIsDeposit(true);
       } else {
         setIsDeposit(false);
+        setAtmMode(event.target.value);
+      }
+    };
+
+    const chooseCashOrDeposit = (event) => {
+      if (event.target.value === 'Cash') {
+        setIsCash(true);
+        setAtmMode('Deposit');
+      } else {
+        setIsCash(false);
+        setAtmMode('Deposit');
       }
     };
 
@@ -81,6 +94,13 @@ const Account = () => {
       <input type="button" onClick={chooseTransactionType} value="Deposit" className="btn btn-primary"></input>
       <input type="button" onClick={chooseTransactionType} value="Withdrawal" className="btn btn-dark"></input>
       <br></br>
+      {isDeposit && (
+        <section>
+          <h4>Select type of deposit:</h4>
+          <input type="button" onClick={chooseCashOrDeposit} value="Cash" className="btn cash"></input>
+          <input type="button" onClick={chooseCashOrDeposit} value="Check" className="btn check"></input>
+        </section>
+      )}
       {atmMode && (
         <ATMDeposit onChange={handleChange} isDeposit={isDeposit} choice={choice}></ATMDeposit>
       )}
